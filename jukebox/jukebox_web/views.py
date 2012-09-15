@@ -9,6 +9,7 @@ from django.contrib.messages.api import get_messages
 from django.conf import settings
 from jukebox_core.models import Song, Genre
 
+
 def index(request):
     if request.user.is_authenticated():
         request.session.set_expiry(settings.SESSION_TTL)
@@ -16,16 +17,19 @@ def index(request):
         genres = Genre.objects.all()
         years = Song.objects.values("Year").distinct()
         years = years.exclude(Year=None).exclude(Year=0).order_by("Year")
+        is_staff = request.user.is_staff()
 
         context = {
             "username": request.user.get_full_name(),
             "genres": genres,
-            "years": years
+            "years": years,
+            "is_staff": is_staff
         }
         context.update(csrf(request))
         return render_to_response('index.html', context)
     else:
         return HttpResponseRedirect('login')
+
 
 def login(request):
     if request.user.is_authenticated():
@@ -39,6 +43,7 @@ def login(request):
             RequestContext(request)
         )
 
+
 def login_error(request):
     messages = get_messages(request)
     return render_to_response(
@@ -47,9 +52,11 @@ def login_error(request):
         RequestContext(request)
     )
 
+
 def logout(request):
     auth_logout(request)
     return HttpResponseRedirect('/')
+
 
 def language(request, language):
     from django.utils.translation import check_for_language

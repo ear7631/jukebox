@@ -42,7 +42,9 @@
                 <strong>
                     {% trans 'Now playing' %}
                 </strong>
-                (<a id="skip" href="#">skip</a>)
+                {% if is_staff %}
+                    (<a id="skip" href="#">skip</a>)
+                {% endif %}
                 <br />
                 <span class="songTitle"></span>
                 <span class="timeRemaining"></span>
