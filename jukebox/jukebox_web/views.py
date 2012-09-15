@@ -17,7 +17,7 @@ def index(request):
         genres = Genre.objects.all()
         years = Song.objects.values("Year").distinct()
         years = years.exclude(Year=None).exclude(Year=0).order_by("Year")
-        is_staff = request.user.is_staff()
+        is_staff = request.user.is_staff
 
         context = {
             "username": request.user.get_full_name(),
