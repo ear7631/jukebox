@@ -106,7 +106,6 @@ class songs_current(apiView):
         history = api.history()
         return history.getCurrent()
 
-
 class songs_skip(apiView):
     permissions = (IsAuthenticated, )
 
@@ -481,3 +480,23 @@ class ping(apiView):
         return {
             "ping": True
         }
+
+
+class power_off(apiView):
+    permissions = (IsAuthenticated, )
+
+    def get(self, request):
+        request.session.modified = True
+
+        power_api = api.power()
+        power_api.off()
+
+
+class power_on(apiView):
+    permissions = (IsAuthenticated, )
+
+    def get(self, request):
+        request.session.modified = True
+
+        power_api = api.power()
+        power_api.on()

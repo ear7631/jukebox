@@ -75,4 +75,14 @@ urlpatterns = patterns("",
         views.ping.as_view(),
         name="jukebox_api_ping"
     ),
+    url(
+        r"^api/v1/power/off$",
+        views.power_off.as_view(),
+        name="jukebox_power_off"
+    ),
+    url(
+        r"^api/v1/power/on$",
+        views.power_on.as_view(),
+        name="jukebox_power_on"
+    ),
 )

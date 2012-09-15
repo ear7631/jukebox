@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count, Min, Q
 from django.contrib.sessions.models import Session
 from django.utils import formats
-import os, re, time
+import os, re, time, subprocess
 from datetime import datetime
 from signal import SIGABRT
 
@@ -976,3 +976,10 @@ class players(api_base):
         return {
             "pid": pid,
         }
+
+class power(api_base):
+    def on(self):
+        subprocess.call(['bin/jukebox', 'jukebox_mpg123', '--start'])
+
+    def off(self):
+        subprocess.call(['bin/jukebox', 'jukebox_mpg123', '--stop'])
