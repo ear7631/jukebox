@@ -112,6 +112,18 @@ Music = {
             }
         });
 
+        $("#skip").bind("click", function() {
+            $.get('/api/v1/songs/skip');
+        });
+
+        $("#shutdown").bind("click", function() {
+            $.get('/api/v1/power/off');
+        });
+
+        $("#turnon").bind("click", function() {
+            $.get('/api/v1/power/on');
+        });
+
         $("#profile").bind("click", function() {
             if ($("#accountoptions:visible").length == 1) {
                 $(document).unbind("click.account");
@@ -459,7 +471,18 @@ Music = {
                     $("#main table.list tbody").append(Music.renderData(data));
                 }
                 else {
-                    $("#main").html("<div class=\"noContent\">" + gettext("No data found") + "</div>");
+                    if(data.type == "queue") {
+                        $("#main").html("<div class=\"noContent\">" + gettext("There's no music added to the queue yet, so the jukebox is just going to autoplay stuff. <br>Vote for songs you want to hear to add them to the queue!") + "</div>");
+                    } else if(data.type == "history") {
+                        $("#main").html("<div class=\"noContent\">" + gettext("There's no music in the history because nothing has been played yet!") + "</div>");
+                    } else if(data.type == "history/my") {
+                        $("#main").html("<div class=\"noContent\">" + gettext("You haven't voted on any music yet!") + "</div>");
+                    } else if(data.type == "favourites") {
+                        $("#main").html("<div class=\"noContent\">" + gettext("You haven't added any songs to your favorites yet!") + "</div>");
+                    } else if(data.type == "songs") {
+                        $("#main").html("<div class=\"noContent\">" + gettext("There's no music on the jukebox! Add music, and make sure to re-index!") + "</div>");
+                    }
+                    
                 }
 
                 // set search term - don't iterate to get correct order
