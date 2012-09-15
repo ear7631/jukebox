@@ -14,12 +14,14 @@
                 <a href="/">
                     <img src="/static/img/jukebox.png" alt="{% trans 'Jukebox logo' %}" width="156" height="40" />
                 </a>
+                <!--
                 <span class="author">
                     <span class="grey">by</span>
                     <a href="http://jensnistler.de/jukebox">
                         Jens Nistler
                     </a>
                 </span>
+                -->
             </div>
             <div id="profile" title="{% trans 'Account options' %}">
                 <span class="username">{{ username }}</span>
@@ -40,6 +42,7 @@
                 <strong>
                     {% trans 'Now playing' %}
                 </strong>
+                (<a id="skip" href="#">skip</a>)
                 <br />
                 <span class="songTitle"></span>
                 <span class="timeRemaining"></span>
@@ -103,6 +106,18 @@
                         </a>
                     </li>
                 </ul>
+
+                <h1>
+                    Power Controls
+                </h1>
+                <ul>
+                    <li>
+                        <a id="turnon" href="#">Turn on</a>
+                    </li>
+                    <li>
+                        <a id="shutdown" href="#">Turn off</a>
+                    </li>
+                </ul>
             </div>
             <div id="main_spacer"></div>
             <div id="main">
@@ -162,6 +177,9 @@
             <ul>
                 <li>
                     <a href="/logout">{% trans 'Logout' %}</a>
+                </li>
+                <li>
+                    <a href="/admin/">Admin Panel</a>
                 </li>
             </ul>
         </div>
